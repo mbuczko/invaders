@@ -36,7 +36,7 @@ be aware of edge wrapping.
 4. Run jar file with argument:
 
 ``` sh
-java -jar ./target/invaders-0.1.0-SNAPSHOT.jar <arguments>
+java -jar ./target/invaders-0.2.0-SNAPSHOT.jar <arguments>
 ```
 
 Recognizable arguments:
@@ -50,8 +50,8 @@ Recognizable arguments:
 Sample invocations:
 
 ``` sh
-java -jar ./target/invaders-0.1.0-SNAPSHOT.jar -a levenshtein -f resources/samples/pesky.sample
-java -jar ./target/invaders-0.1.0-SNAPSHOT.jar -t 20 -f resources/samples/pesky.sample
+java -jar ./target/invaders-0.2.0-SNAPSHOT.jar -a levenshtein -f resources/samples/pesky.sample
+java -jar ./target/invaders-0.2.0-SNAPSHOT.jar -t 20 -f resources/samples/pesky.sample
 ```
 
 Distributed under the Eclipse Public License version 1.0.
