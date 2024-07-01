@@ -5,23 +5,24 @@
 (defrecord Region [x y w h])
 
 (defn- take-wrapped
-  "Just a `clojure.core.take` but starting at given `offset` and wrapping at the edges
-  so, that missing elements at the end are taken from the the beginning of `data`."
+  "Just a `clojure.core.take` but starting at given `offset` and wrapping
+  at the edges so, that missing elements at the end are taken from the the
+  beginning of `data`."
   [n offset data]
   (take n (drop offset (cycle data))))
 
 (defn region->str
-  "Turns region into a string composed of ascii characters taken from `Sample`.
+  "Turns region into a string composed of ascii characters taken from sample.
 
-  Region's cartesian (x,y) coordinates are translated to match internal structure of
-  loaded sample (sequence of lines) in a following way:
+  Region's cartesian (x,y) coordinates are translated to match internal
+  structure of loaded sample (sequence of lines) in a following way:
     - x becomes a 0-indexed position within a line
     - y becomes a 0-indexed number of line
 
-  And so, (2,3) means the region starts from 3rd character in a 4th line, going `w`
-  characters forward and `h` lines down. Region wraps at the edges of sample so, that
-  missing columns and lines are taken respectively from \"left\" and \"top\" side of
-  sample considered as 2-dimensional plane.
+  And so, (2,3) means the region starts from 3rd character in a 4th line, going
+  `w` characters forward and `h` lines down. Region wraps at the edges of sample
+  so, that missing columns and lines are taken respectively from \"left\" and
+  \"top\" side of sample considered as 2-dimensional plane.
 
   Example:
   For following sample:
