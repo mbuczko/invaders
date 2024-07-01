@@ -30,6 +30,8 @@
                     :index idx}))))))
 
 (defn scan
+  "Scans a `sample` looking for invaders defined by `invaders-indexed`.
+  Shapes are matched using detector function described by `metric`."
   [{:keys [width height] :as sample} invaders-indexed metric]
   (f/attempt-all
    [sample (or (validated-input ::sample/sample sample)
