@@ -6,11 +6,13 @@
             [invaders.detectors :as detectors]
             [failjure.core :as f]))
 
-(defn- validated-input
+(defn- ensure-valid
   "Helper function returning an `input` if it's valid according
-  to given `spec`. Returns nil otherwise."
+  to given `spec`. Returns a failure with problem explanation otherwise."
   [spec input]
-  (when (s/valid? spec input) input))
+  (if (s/valid? spec input)
+    input
+    (f/fail (s/explain-str spec input))))
 
 (defn offset->invader
   "Returns a map consisting of invader's position and size (along with
@@ -33,13 +35,9 @@
   "Scans a `sample` looking for invaders defined by `invaders-indexed`.
   Shapes are matched using detector function described by `metric`."
   [{:keys [width height] :as sample} invaders-indexed metric]
-  (f/attempt-all
-   [sample (or (validated-input ::sample/sample sample)
-               (f/fail "Invalid sample data"))
-    invaders-indexed (or (validated-input ::invaders/invaders invaders-indexed)
-                         (f/fail "Invalid invaders definitions"))
-    xy->invader (partial offset->invader sample invaders-indexed metric)]
-
+  (f/attempt-all [sample (ensure-valid ::sample/sample sample)
+                  invaders-indexed (ensure-valid ::invaders/invaders invaders-indexed)
+                  xy->invader (partial offset->invader sample invaders-indexed metric)]
     (loop [x 0
            y 0
            invaders []]
