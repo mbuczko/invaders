@@ -6,12 +6,11 @@
             [clojure.java.io :as io]
             [invaders.scanner :as scanner]))
 
-(defn load-sample
+(defn- load-sample
   [res]
-  (let [invaders (slurp (io/resource res))]
-    (some->> (str/split invaders #"\n\n")
-             (map (comp s/lines->sample str/split-lines))
-             first)))
+  (some->> (slurp (io/resource res))
+           str/split-lines
+           s/lines->sample))
 
 (deftest discovers-non-wrapped-invader
   (let [invaders (i/load-invaders)
