@@ -1,3 +1,28 @@
+Hello World!
+
+Here I come to save this planet from pesky invaders hiding somewhere in the clouds.
+
+# Concepts
+There are couple of definition and assumptions to explain before going further down the road:
+
+## Assumptions
+1. Invaders are not smart enough to hide partially behind themselves, or more technically - they do not overlap each other.
+This assumption simplifies a lot invader recognition as it implies that at given scanned region there might be at most 1 invader.
+2. Sample is considered to be a 0-indexed cartesian plane wrapping at the edges. It begins at top-left corner with coordinates (0,0).
+
+## Samples and regions
+_Sample_ is an ascii radar sample stored internally as a sequence of lines. It is used as an input for scanning along with invaders definition. As result, sample gets printed with all found invaders replaced with their canonical shape.
+
+Scanning bases on a variable-width rolling-window wrapping at the edges. It means that at every single step scanner tries to match
+any of defined invaders adjusting window width to invader's one.
+
+_Region_ is a name used internally to describe a rolling window. It has it's (`x`,`y`) coordinates within the plane as well as `width` and `height`.
+
+# Futher optimization
+1. Skip regions which overlap with already detected invaders (not finished). As invaders do not overlap, this could improve
+speed of scanner - it wouldn't go again through regions which partially overlap with found invaders. Major trick here is to
+be aware of edge wrapping.
+
 # Installation (Mac)
 
 1. Install clojure (`brew install clojure`)
