@@ -1,0 +1,3 @@
+{:launchpad/main-opts ["--emacs"]
+ :launchpad/aliases [:dev]}
+
