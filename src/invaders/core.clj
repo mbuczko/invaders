@@ -11,7 +11,7 @@
 (def cli-options
   [["-t" "--tolerance TOLERANCE" "Detecting tolerance (the higher the more fuzz is tolerated)."
     :id :tolerance
-    :default 12
+    :default 20
     :parse-fn #(Integer/parseInt %)]
    ["-a" "--algorithm ALGO" "Algorith used to detect invaders (levenshtein or hamming)"
     :id :algo
