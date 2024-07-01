@@ -31,6 +31,18 @@
                     :h height
                     :index idx}))))))
 
+(defn overlapped-region
+  "Iterates through `found-invaders` looking for ones that collide with
+  4x4 region starting at (x,y).
+
+  Why size of 4x4?
+  It seems to be enough to filter out a noise near already found invader
+  and not interpret it as other invader via fuzzy matching."
+  [sample found-invaders x y]
+  (let [region (->Region x y 4 4)]
+    (->> found-invaders
+         (some #(region/includes-region? sample % region)))))
+
 (defn scan
   "Scans a `sample` looking for invaders defined by `invaders-indexed`.
   Shapes are matched using detector function described by `metric`."
@@ -53,8 +65,12 @@
         ;; detection process.
         ;; that's ok as long as the "invaders do not overlap" assumption
         ;; stays true...
-        (let [invader (xy->invader x y)
-              forward (if invader (:w invader) 1)
+        (let [overlap (overlapped-region sample invaders x y)
+              invader (and (not overlap)
+                           (xy->invader x y))
+              forward (if invader
+                        (:w invader)
+                        (:w overlap 1))
               next-x (mod (+ x forward) width)
               next-y (if (< next-x x) (inc y) y)]
 
