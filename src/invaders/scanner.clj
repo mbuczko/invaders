@@ -3,15 +3,22 @@
             [invaders.sample :as sample]
             [invaders.invaders :as invaders]
             [invaders.region :refer [->Region] :as region]
-            [invaders.detectors :as detectors]))
+            [invaders.detectors :as detectors]
+            [failjure.core :as f]))
+
+(defn- validated-input
+  "Helper function returning an `input` if it's valid according
+  to given `spec`. Returns nil otherwise."
+  [spec input]
+  (when (s/valid? spec input) input))
 
 (defn offset->invader
   "Returns a map consisting of invader's position and size (along with
   index in `indexed-invaders` definition map) if any of invaders has
   been detected by `invaders.detectors/detect` multi-fn based on provided
   metric. Returns nil otherwise."
-  [sample indexed-invaders metric x y]
-  (->> indexed-invaders
+  [sample invaders-indexed metric x y]
+  (->> invaders-indexed
        (some (fn [[idx {:keys [width height line]}]]
                (let [region (->Region x y width height)
                      regstr (region/region->str sample region)]
@@ -23,11 +30,14 @@
                     :index idx}))))))
 
 (defn scan
-  [{:keys [width height] :as sample} indexed-invaders metric]
-  (s/valid? ::sample/sample sample)
-  (s/valid? ::invaders/invaders indexed-invaders)
+  [{:keys [width height] :as sample} invaders-indexed metric]
+  (f/attempt-all
+   [sample (or (validated-input ::sample/sample sample)
+               (f/fail "Invalid sample data"))
+    invaders-indexed (or (validated-input ::invaders/invaders invaders-indexed)
+                         (f/fail "Invalid invaders definitions"))
+    xy->invader (partial offset->invader sample invaders-indexed metric)]
 
-  (let [xy->invader (partial offset->invader sample indexed-invaders metric)]
     (loop [x 0
            y 0
            invaders []]
