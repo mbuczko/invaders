@@ -24,7 +24,7 @@ _Detector_ is a multi-function which based on stringified region and invader's d
 with some tolerance. As for now two major string metric algorithms are being used: Levenshtein and Hamming (parametrized by `--algorithm` command line argument). The output is compared to `tolerance` (parametrized by `--tolerance` argument) which might be used to control "fuzziness" during matching process.
 
 # Futher optimization
-1. Skip regions which overlap with already detected invaders (not finished). As invaders do not overlap, this could improve
+1. Skip regions which overlap with already detected invaders. As invaders do not overlap, this could improve
 speed of scanner - it wouldn't go again through regions which partially overlap with found invaders. Major trick here is to
 be aware of edge wrapping.
 
