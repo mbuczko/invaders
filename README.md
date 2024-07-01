@@ -16,7 +16,7 @@ _Sample_ is an ascii radar sample stored internally as a sequence of lines. It i
 Scanning bases on a variable-width rolling-window wrapping at the edges. It means that at every single step scanner tries to match
 any of defined invaders adjusting window width to invader's one.
 
-_Region_ is a name used internally to describe a rolling window. It has it's (`x`,`y`) coordinates within the plane as well as `width` and `height`. There are multiple places (like detector functions) where this representation is not the most effective one, therefore it's often transformed into stringifed form, eg `["aa" "bb" "cc"]` becomes `"aabbcc"`.
+_Region_ is a name used internally to describe a rolling window. It has it's (`x`,`y`) coordinates within the plane as well as `width` and `height`. When applied to a sample data, it is turned into a sequence of substrings carved to match (wrapping) regions boundary. There are multiple places (like detector functions) where this representation is not the most effective one, therefore sequence is often transformed into a "flat" stringifed form, eg `["aa" "bb" "cc"]` becomes `"aabbcc"`.
 
 _Detector_ is a multi-function which based on stringified region and invader's definition returns a boolean if both match each other
 with some tolerance. As for now two major string metric algorithms are being used: Levenshtein and Hamming (parametrized by `--algorithm` command line argument). The output is compared to `tolerance` (parametrized by `--tolerance` argument) which might be used to control "fuzziness" during matching process.
