@@ -2,13 +2,13 @@ Hello World!
 
 Here I come to save this planet from pesky invaders hiding somewhere in the clouds.
 
-# Concepts
-There are couple of definition and assumptions to explain before going further down the road:
-
-## Assumptions
+# Assumptions
 1. Invaders are not smart enough to hide partially behind themselves, or more technically - they do not overlap each other.
 This assumption simplifies a lot invader recognition as it implies that at given scanned region there might be at most 1 invader.
 2. Sample is considered to be a 0-indexed cartesian plane wrapping at the edges. It begins at top-left corner with coordinates (0,0).
+
+# Concepts
+There are couple of definition and assumptions to explain before going further down the road:
 
 ## Samples and regions
 _Sample_ is an ascii radar sample stored internally as a sequence of lines. It is used as an input for scanning along with invaders definition. As result, sample gets printed with all found invaders replaced with their canonical shape.
