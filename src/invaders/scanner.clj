@@ -17,8 +17,8 @@
 (defn offset->invader
   "Returns a map consisting of invader's position and size (along with
   index in `indexed-invaders` definition map) if any of invaders has
-  been detected by `invaders.detectors/detect` multi-fn based on provided
-  metric. Returns nil otherwise."
+  been detected by `invaders.detectors/detect` multi-method based on
+  provided metric. Returns nil otherwise."
   [sample invaders-indexed metric x y]
   (->> invaders-indexed
        (some (fn [[idx {:keys [width height line]}]]

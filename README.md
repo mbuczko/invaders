@@ -20,8 +20,9 @@ any of defined invaders adjusting window width to invader's one.
 
 _Region_ is a name used internally to describe a rolling window. It has it's (`x`,`y`) coordinates within the plane as well as its `w` (width) and `h` (height). When applied to a sample data (through `invaders.region/region->str`) it returns concatenated substrings carved to match regions boundary. As an example, given that region narrows a sample down to `["aa" "bb" "cc"]` outcome string becomes `"aabbcc"`. There are multiple places (like detector functions) where this representation is easier to handle compared to vector of substrings.
 
-_Detector_ is a multi-function which based on stringified region and invader's definition returns a boolean if both match each other
-with some tolerance. As for now two major string metric algorithms are being used: Levenshtein and Hamming (parametrized by `--algorithm` command line argument). The output is compared to `tolerance` (parametrized by `--tolerance` argument) which might be used to control "fuzziness" during matching process.
+_Detectors_ are a multi-methods that leverage fuzzy-matching functions from [clj-fuzzy](https://yomguithereal.github.io/clj-fuzzy/clojure.html) library. As for now two major string metric algorithms are being used: Levenshtein and Hamming (default) parametrized by `--algorithm` command line argument. The output from fuzzy matcher is a plain integer describing how much strings (region and invader definition) differ. If result is lower or equal given threshold - a `tolerance` (parametrized by `--tolerance` argument) strings are considered to be "similar enough".
+
+In case of unsatisfactory results, a tolerance argument should be adjusted (usually increased).
 
 # Futher optimization
 1. Skip regions which overlap with already detected invaders. As invaders do not overlap, this could improve
