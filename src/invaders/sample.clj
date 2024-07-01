@@ -28,7 +28,7 @@
 
 (defn rolling-replace
   "Replaces source string `s` with `replacement` starting from given `offset`.
-  Replacing may roll over to the beginning of `'s` in case when wrapping happens."
+  Replacing may roll over to the beginning of `s` in case when wrapping happens."
   [s offset replacement]
   {:pre [(>= offset 0)]}
   (let [slen (count s)
