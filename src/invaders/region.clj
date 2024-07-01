@@ -13,8 +13,8 @@
 (defn region->str
   "Turns region into a string composed of ascii characters taken from `Sample`.
 
-  Region's cartesian (x,y) coordinates are translated to match internal structure
-  of loaded sample (sequence of lines) in a following way:
+  Region's cartesian (x,y) coordinates are translated to match internal structure of
+  loaded sample (sequence of lines) in a following way:
     - x becomes a 0-indexed position within a line
     - y becomes a 0-indexed number of line
 
@@ -24,7 +24,6 @@
   sample considered as 2-dimensional plane.
 
   Example:
-
   For following sample:
 
      (lines->sample [\"abc\" \"012\" \"def\"])
@@ -33,8 +32,7 @@
 
     (->Region 1 0 2 3)
 
-  function returns a flat string composed of region [\"bc\", \"12\", \"ef\"]
-  which is \"bc12ef\".
+  function returns concatenated region [\"bc\", \"12\", \"ef\"] which is \"bc12ef\".
 
   Returns nil if something went wrong (eg. coordinates are out of band)."
   [{:keys [lines width height] :as _sample} {:keys [x y w h] :as _region}]
@@ -45,8 +43,8 @@
          (apply str))))
 
 (defn- in-region?
-  "Returns true if region includes coordinates (`cx`, `cy`) in
-  2-dimensional wrapping cartesian plane of given `width` and
+  "Returns true if region includes coordinates (`cx`, `cy`) in 2-dimensional wrapping
+  cartesian plane of given `width` and
   `height`."
   [{:keys [x y w h]} width height cx cy]
   (let [x2 (dec (+ x w))
@@ -66,9 +64,8 @@
          (or (<= cy y2) within-y-wrap))))
 
 (defn includes-region?
-  "Returns true if `region` includes other region.
-  Both `region` and other region may be wrapped around cartesian
-  plane of given `width` and `height`."
+  "Returns true if `region` includes other region. Both `region` and other region may
+  be wrapped around cartesian plane of given `width` and `height`."
   [{:keys [width height] :as _sample} region {:keys [x y w h]}]
   (let [inside? (partial in-region? region width height)
         ;; bottom-right edge corner (modulo plane size)
