@@ -20,16 +20,17 @@
     :id :filename]
    ["-h" "--help"]])
 
+(defn usage
+  "Displays a help with description of all recognizable arguments."
+  [summary]
+  (println "Arguments:\n")
+  (println summary))
+
 (defn- denoise
   "Replaces any character in `input` which is not a void ('-')
   with a recognizable marker ('o')."
   [input]
   (str/replace input #"[^\-]" "o"))
-
-(defn usage
-  [summary]
-  (println "Arguments:\n")
-  (println summary))
 
 (defn -main [& args]
   (let [parsed (cli/parse-opts args cli-options)
