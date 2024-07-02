@@ -45,8 +45,7 @@
 
 (defn- in-region?
   "Returns true if region includes coordinates (`cx`, `cy`) in 2-dimensional wrapping
-  cartesian plane of given `width` and
-  `height`."
+  cartesian plane of given `width` and `height`."
   [{:keys [x y w h]} width height cx cy]
   (let [x2 (dec (+ x w))
         y2 (dec (+ y h))
