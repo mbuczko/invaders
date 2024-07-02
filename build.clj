@@ -4,7 +4,7 @@
             [clojure.tools.build.api :as b]))
 
 (def lib 'invaders)
-(def version "0.2.0-SNAPSHOT")
+(def version "0.3.0")
 (def main 'invaders.core)
 (def class-dir "target/classes")
 (def basis (b/create-basis {}))

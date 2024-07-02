@@ -8,6 +8,8 @@
             [invaders.scanner :as scanner]
             [invaders.printer :as printer]))
 
+(def ^:const algos #{"hamming" "levenshtein"})
+
 (def cli-options
   [["-t" "--tolerance TOLERANCE" "Detecting tolerance (the higher the more fuzz is tolerated)."
     :id :tolerance
@@ -15,6 +17,7 @@
     :parse-fn #(Integer/parseInt %)]
    ["-a" "--algorithm ALGO" "Algorith used to detect invaders (levenshtein or hamming)"
     :id :algo
+    :parse-fn #(get algos % "hamming")
     :default "hamming"]
    ["-f" "--filename FILENAME" "A path to sample file"
     :id :filename]
