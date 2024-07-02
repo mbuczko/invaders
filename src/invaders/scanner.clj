@@ -47,6 +47,8 @@
   "Scans a `sample` looking for invaders defined by `invaders-indexed`.
   Shapes are matched using detector function described by `metric`."
   [{:keys [width height] :as sample} invaders-indexed metric]
+  (println "Looking for invaders with" (name (:algo metric)))
+
   (f/attempt-all [sample (ensure-valid ::sample/sample sample)
                   invaders-indexed (ensure-valid ::invaders/invaders invaders-indexed)
                   xy->invader (partial offset->invader sample invaders-indexed metric)]
